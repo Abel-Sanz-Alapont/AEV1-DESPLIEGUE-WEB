@@ -2,7 +2,7 @@
 session_start();
 
 // Lista de palabras para el juego
-$palabras = ['elefante', 'jirafa', 'hipopotamo', 'rinoceronte', 'cocodrilo', 'camello', 'chimpance','tigre','mono','leon','gato','perro','vaca','gorila'];
+$palabras = ['elefante', 'jirafa', 'hipopotamo', 'rinoceronte', 'cocodrilo', 'camello', 'chimpance', 'tigre', 'mono', 'leon', 'gato', 'perro', 'vaca', 'gorila'];
 
 // Inicializar el juego
 if (!isset($_SESSION['palabra'])) {
@@ -38,24 +38,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['letra'])) {
 
 // Comprobar si se ha ganado o perdido
 if ($_SESSION['letras_acertadas'] == $_SESSION['palabra']) {
-    echo "¡Enhorabuena! Has ganado :) La palabra era: " . $_SESSION['palabra'] . "<br>";
-    session_destroy();
-    echo '<a href="">Jugar de nuevo</a>';
+    header("Location: victoria.php");
     exit();
 } elseif ($_SESSION['vidas'] <= 0) {
-    echo "Lo siento, has perdido :( La palabra era: " . $_SESSION['palabra'] . "<br>";
-    session_destroy();
-    echo '<a href="">Jugar de nuevo</a>';
+    header("Location: derrota.php");
     exit();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Ahorcado</title>
 </head>
+
 <body>
     <h1>Juego del Ahorcado</h1>
     <p>Palabra secreta: <?php echo $_SESSION['letras_acertadas']; ?></p>
@@ -67,4 +65,5 @@ if ($_SESSION['letras_acertadas'] == $_SESSION['palabra']) {
     </form>
     <p>Letras usadas: <?php echo implode(', ', $_SESSION['letras_usadas']); ?></p>
 </body>
+
 </html>
